@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "functions": {
+    "frontend/api/**/*.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
