@@ -1,7 +1,6 @@
 {
-  "buildCommand": "npm install && npm run build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rootDirectory": "frontend",
   "env": {
     "NODE_ENV": "production"
   },
