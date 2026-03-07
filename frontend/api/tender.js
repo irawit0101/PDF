@@ -14,16 +14,15 @@ async function upstashRequest(command, args = []) {
     throw new Error('Upstash environment variables are not set');
   }
 
-  const fullUrl = `${base}/${command}`;
-  console.log('Upstash request', fullUrl, args);
+  console.log('Upstash request', command, args);
 
-  const response = await fetch(fullUrl, {
+  const response = await fetch(base, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${UPSTASH_TOKEN}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(args),
+    body: JSON.stringify({ command, args }),
   });
 
   if (!response.ok) {
