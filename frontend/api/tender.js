@@ -1,5 +1,5 @@
-const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL;
-const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
+const UPSTASH_URL = process.env.UPSTASH_REDIS_REST_URL?.replace(/^['"]|['"]$/g, '');
+const UPSTASH_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN?.replace(/^['"]|['"]$/g, '');
 
 // helper to keep url consistent regardless of trailing slash
 function normalizeUrl(url) {
