@@ -14,7 +14,8 @@ async function upstashRequest(command, args = []) {
     throw new Error('Upstash environment variables are not set');
   }
 
-  console.log('Upstash request', command, args);
+  const redisCommand = [command.toUpperCase(), ...args];
+  console.log('Upstash request', redisCommand);
 
   const response = await fetch(base, {
     method: 'POST',
@@ -22,7 +23,7 @@ async function upstashRequest(command, args = []) {
       Authorization: `Bearer ${UPSTASH_TOKEN}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ command, args }),
+    body: JSON.stringify(redisCommand),
   });
 
   if (!response.ok) {
