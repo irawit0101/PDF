@@ -1,5 +1,6 @@
 import PDFDocument from 'pdfkit';
 import { getTenders, clearTenders } from './tender.js';
+import { getTenders, clearTenders } from './tender.js';
 
 function convertToIndianWords(number) {
   const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
@@ -350,7 +351,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const tenders = getTenders();
+    const tenders = await getTenders();
     
     if (tenders.length === 0) {
       return res.status(400).json({ error: 'No tenders available' });
@@ -359,7 +360,7 @@ export default async function handler(req, res) {
     const pdfBuffer = await generatePDF(tenders);
     
     // Clear tenders after generating PDF
-    clearTenders();
+    await clearTenders();
 
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'attachment; filename=tenders.pdf');
