@@ -1,6 +1,5 @@
 import PDFDocument from 'pdfkit';
 import { getTenders, clearTenders } from './tender.js';
-import { getTenders, clearTenders } from './tender.js';
 
 function convertToIndianWords(number) {
   const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
@@ -350,8 +349,10 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  console.log('/api/generate-pdf called');
   try {
     const tenders = await getTenders();
+    console.log('Fetched tenders from Upstash, count=', tenders.length);
     
     if (tenders.length === 0) {
       return res.status(400).json({ error: 'No tenders available' });
@@ -366,6 +367,7 @@ export default async function handler(req, res) {
     res.setHeader('Content-Disposition', 'attachment; filename=tenders.pdf');
     res.send(pdfBuffer);
   } catch (error) {
+    console.error('Error in /api/generate-pdf handler', error);
     res.status(500).json({ error: error.message });
   }
 }
